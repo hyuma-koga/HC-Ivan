@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb863edf7e38d4944b23c0baf8bb5bfc, type: 3}
+  m_Name: Data_Fruit
+  m_EditorClassIdentifier: 
+  fruitDataList:
+  - type: 0
+    sprite: {fileID: 21300000, guid: 9a1699ea8a1ece64b8d54ceaabefbb5f, type: 3}
+    score: 1
+    nextType: 1
+  - type: 1
+    sprite: {fileID: 21300000, guid: bb7ead9f23dcbaf48b0e29f38df00613, type: 3}
+    score: 2
+    nextType: 2
+  - type: 2
+    sprite: {fileID: 21300000, guid: f7597d4cd2048ae479256ca0b1efa95a, type: 3}
+    score: 4
+    nextType: 3
+  - type: 3
+    sprite: {fileID: 21300000, guid: 77dcf5fffc113fe4f99253215aaab1a4, type: 3}
+    score: 8
+    nextType: 4
+  - type: 4
+    sprite: {fileID: 21300000, guid: 43b235dab2a42dc4dbb54a71ce09808d, type: 3}
+    score: 16
+    nextType: 5
+  - type: 5
+    sprite: {fileID: 21300000, guid: 374ea5b2363989c4bafa7bbdf7c305d3, type: 3}
+    score: 32
+    nextType: 6
+  - type: 6
+    sprite: {fileID: 21300000, guid: 7cfd7c98f92a67b44b6c72aadbc05a5b, type: 3}
+    score: 64
+    nextType: 7
+  - type: 7
+    sprite: {fileID: 21300000, guid: 72177b709b3d3f14db09b26495b9333c, type: 3}
+    score: 128
+    nextType: 8
+  - type: 8
+    sprite: {fileID: 21300000, guid: f69e50f7a466f2742bdb672561e85d0b, type: 3}
+    score: 256
+    nextType: 9
+  - type: 9
+    sprite: {fileID: 21300000, guid: 28f77af6a9d75c24895a020ca88b198e, type: 3}
+    score: 512
+    nextType: 10
+  - type: 10
+    sprite: {fileID: 21300000, guid: eb3fe0f3adab2d84fa3df3ae56c73dfb, type: 3}
+    score: 0
+    nextType: 0

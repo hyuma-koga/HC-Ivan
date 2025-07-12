@@ -46,6 +46,9 @@ public class FruitDropper : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 
+        FruitController fruitCtrl = standbyFruit.GetComponent<FruitController>();
+        fruitCtrl.StartCoroutine(fruitCtrl.EnableGameOverCheckAfterDelay(0.5f));
+
         standbyFruit = null;
 
         StartCoroutine(SpawnNextFruitAfterDelay(0.5f));

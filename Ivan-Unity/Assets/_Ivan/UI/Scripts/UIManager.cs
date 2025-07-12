@@ -5,6 +5,7 @@ public class UIManager : MonoBehaviour
 {
     public Image        nextFruitImage;
     public Text         scoreText;
+    public Text         bestScoreText;
     public ScoreManager scoreManager;
 
     private void Update()
@@ -12,6 +13,11 @@ public class UIManager : MonoBehaviour
         if (scoreText != null && scoreManager != null)
         {
             scoreText.text = scoreManager.CurrentScore.ToString();
+        }
+
+        if (bestScoreText != null && scoreManager != null)
+        {
+            bestScoreText.text = scoreManager.BestScore.ToString();
         }
     }
 

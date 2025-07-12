@@ -6,14 +6,19 @@ public class FruitDropper : MonoBehaviour
     public GameObject   fruitPrefab;
     public Transform    spawnPoint;
     public FruitManager fruitManager;
+    public UIManager    uiManager;
 
+    private FruitType   currentFruitType;
     private FruitType   nextFruitType;
     private GameObject  standbyFruit;
 
     private void Start()
     {
+        currentFruitType = GetRandomFruitType();
         nextFruitType = GetRandomFruitType();
-        CreateStandbyFruit();
+
+        UpdateNextFruitUI();
+        CreateStandbyFruit(currentFruitType);
     }
 
     private void Update()
@@ -29,6 +34,7 @@ public class FruitDropper : MonoBehaviour
         }
     }
 
+    //フルーツの落下
     public void DropFruit()
     {
         if (standbyFruit == null)
@@ -38,34 +44,47 @@ public class FruitDropper : MonoBehaviour
 
         Rigidbody2D rb = standbyFruit.GetComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Dynamic;
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 
         standbyFruit = null;
 
-        StartCoroutine(SpawnNextFruitAfterDelay(0.4f));
+        StartCoroutine(SpawnNextFruitAfterDelay(0.5f));
     }
 
+    //生成タイミングを遅らせる
     private IEnumerator SpawnNextFruitAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
 
-        //次のフルーツ種類を決定
+        currentFruitType = nextFruitType;
         nextFruitType = GetRandomFruitType();
-        CreateStandbyFruit();
+
+        UpdateNextFruitUI();
+        CreateStandbyFruit(currentFruitType);
     }
 
-    private void CreateStandbyFruit()
+    //プレイヤーに持たせてスタンバイ状態にする
+    private void CreateStandbyFruit(FruitType type)
     {
-        FruitData data = fruitManager.GetFruitData(nextFruitType);
+        FruitData data = fruitManager.GetFruitData(type);
 
         standbyFruit = Instantiate(fruitPrefab, spawnPoint.position, Quaternion.identity);
 
-        FruitController fruitCtrl = standbyFruit.GetComponent<FruitController>() ;
+        FruitController fruitCtrl = standbyFruit.GetComponent<FruitController>();
         fruitCtrl.Init(data);
 
-        Rigidbody2D rb = standbyFruit.GetComponent <Rigidbody2D>();
+        Rigidbody2D rb = standbyFruit.GetComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Kinematic;
     }
 
+    //UIに次のフルーツを表示
+    private void UpdateNextFruitUI()
+    {
+        FruitData nextData = fruitManager.GetFruitData(nextFruitType);
+        uiManager.UpdateNextFruit(nextData.sprite);
+    }
+
+    //次のフルーツをランダムに取得する
     private FruitType GetRandomFruitType()
     {
         int random = Random.Range(0, 5);

@@ -5,6 +5,7 @@ public class FruitMergeManager : MonoBehaviour
     public static FruitMergeManager Instance;
     public FruitManager             fruitManager;
     public GameObject               fruitPrefab;
+    public ScoreManager             scoreManager;
 
     private void Awake()
     {
@@ -41,6 +42,11 @@ public class FruitMergeManager : MonoBehaviour
         GameObject newFruitObj = Instantiate(fruitPrefab, margePos, Quaternion.identity);
         FruitController newFruit = newFruitObj.GetComponent<FruitController>();
         newFruit.Init(fruitManager.GetFruitData(nextType));
+
+        if (scoreManager != null)
+        {
+            scoreManager.AddScore(newFruit.score);
+        }
 
         Destroy(a.gameObject);
         Destroy(b.gameObject);

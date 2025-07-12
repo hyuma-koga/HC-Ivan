@@ -23,6 +23,7 @@ public class FruitController : MonoBehaviour
         UpdatePolygonColliderShape();
     }
 
+    //PolygonColliderの設定
     private void UpdatePolygonColliderShape()
     {
         PolygonCollider2D polygonCollider = GetComponent<PolygonCollider2D>();
@@ -34,11 +35,7 @@ public class FruitController : MonoBehaviour
 
         List<Vector2> shape = new List<Vector2>();
         spriteRenderer.sprite.GetPhysicsShape(0, shape);
-
-        // 既存のパスをクリア（pathCount = 1 にする）
         polygonCollider.pathCount = 1;
-
-        // 新しいパスをセット
         polygonCollider.SetPath(0, shape.ToArray());
     }
 

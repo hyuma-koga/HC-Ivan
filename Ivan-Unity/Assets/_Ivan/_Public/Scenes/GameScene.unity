@@ -655,7 +655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a87b84507a56274abfa3ee2e7b6bdf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverLineY: -1
+  gameOverLineY: 2.2
   gameOverUI: {fileID: 472547215}
   resultManager: {fileID: 1629040351}
 --- !u!1 &248755548
@@ -1179,7 +1179,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 463612897}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1629040351}
+        m_TargetAssemblyTypeName: ResultManager, Assembly-CSharp
+        m_MethodName: ReturnToGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &463612897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4559,15 +4571,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e67f3fdf4ea14984086e7c79c71b5f87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 773120318}
+  scoreManager: {fileID: 1515177265}
   resultUI: {fileID: 1928535178}
   titleUI: {fileID: 1840056785}
   gameUI: {fileID: 1924513736}
+  gameOverUI: {fileID: 472547215}
   scoreText: {fileID: 248755550}
-  scoreManager: {fileID: 1515177265}
   resultImage: {fileID: 312078361}
   mainCamera: {fileID: 519420031}
   fruitDropper: {fileID: 1279934979}
-  gameManager: {fileID: 773120318}
 --- !u!1 &1648668305
 GameObject:
   m_ObjectHideFlags: 0

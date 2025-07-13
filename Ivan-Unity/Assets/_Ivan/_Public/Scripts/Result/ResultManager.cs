@@ -10,6 +10,7 @@ public class ResultManager : MonoBehaviour
     public GameObject   resultUI;
     public GameObject   titleUI;
     public GameObject   gameUI;
+    public GameObject   gameOverUI;
     public TMP_Text     scoreText;
     public Image        resultImage;
     public Camera       mainCamera;
@@ -26,6 +27,34 @@ public class ResultManager : MonoBehaviour
     public void ShowResult()
     {
         StartCoroutine(CaptureAndShowResult());
+    }
+
+    public void ReturnToGame()
+    {
+        if (resultUI != null)
+        {
+            resultUI.SetActive(false);
+        }
+
+        if (gameUI != null)
+        {
+            gameUI.SetActive(true);
+        }
+
+        if (gameOverUI != null)
+        {
+            gameOverUI.SetActive(false);
+        }
+
+        if (fruitDropper != null)
+        {
+            fruitDropper.ClearFruit();
+        }
+
+        if (gameManager != null)
+        {
+            gameManager.StartGame();
+        }
     }
 
     public void ReturnToTitle()

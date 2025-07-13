@@ -5,13 +5,15 @@ using System.Collections;
 
 public class ResultManager : MonoBehaviour
 {
-    public GameObject   resultUI;
-    public GameObject   titleUI;
-    public GameObject   gameUI;
-    public TMP_Text     scoreText;
+    public GameObject resultUI;
+    public GameObject titleUI;
+    public GameObject gameUI;
+    public TMP_Text scoreText;
     public ScoreManager scoreManager;
-    public Image        resultImage;
-    public Camera       mainCamera;
+    public Image resultImage;
+    public Camera mainCamera;
+    public FruitDropper fruitDropper;
+    public GameManager gameManager;
 
     private void Awake()
     {
@@ -23,32 +25,30 @@ public class ResultManager : MonoBehaviour
 
     public void ShowResult()
     {
-        ClearAllFruits();
         StartCoroutine(CaptureAndShowResult());
     }
 
     public void ReturnToTitle()
     {
-        if (resultUI != null)
-        {
-            resultUI.SetActive(false);
-        }
+        if (resultUI != null) resultUI.SetActive(false);
+        if (titleUI != null) titleUI.SetActive(true);
+        if (gameUI != null) gameUI.SetActive(false);
 
-        if (titleUI != null)
+        if (fruitDropper != null)
         {
-            titleUI.SetActive(true);
-        }
-
-        if (gameUI != null)
-        {
-            gameUI.SetActive(false);
+            fruitDropper.ClearFruit();
         }
 
         Time.timeScale = 1f;
-        
+
         if (scoreManager != null)
         {
             scoreManager.ResetScore();
+        }
+
+        if (gameManager != null)
+        {
+            gameManager.EndGame();
         }
     }
 
@@ -86,16 +86,6 @@ public class ResultManager : MonoBehaviour
         if (resultUI != null)
         {
             resultUI.SetActive(true);
-        }
-    }
-
-    public void ClearAllFruits()
-    {
-        FruitController[] fruits = FindObjectsByType<FruitController>(FindObjectsSortMode.None);
-
-        foreach (var fruit in fruits)
-        {
-            Destroy(fruit.gameObject);
         }
     }
 }

@@ -16,11 +16,6 @@ public class FruitDropper : MonoBehaviour
 
     private void Start()
     {
-        //currentFruitType = GetRandomFruitType();
-        //nextFruitType = GetRandomFruitType();
-
-        //UpdateNextFruitUI();
-        //CreateStandbyFruit(currentFruitType);
     }
 
     private void Update()
@@ -36,7 +31,7 @@ public class FruitDropper : MonoBehaviour
         }
 
         // UI 上クリックは無視
-        if (Input.GetMouseButtonDown(0) && gameManager.CanClick() && !EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetMouseButtonDown(0) && gameManager.IsPlaying && !EventSystem.current.IsPointerOverGameObject())
         {
             DropFruit();
         }
@@ -51,12 +46,22 @@ public class FruitDropper : MonoBehaviour
         CreateStandbyFruit(currentFruitType);
     }
 
-    public void ClearStandbyFruit()
+    public void ClearFruit()
     {
+        StopAllCoroutines();
+
+        // スタンバイ中のフルーツ削除
         if (standbyFruit != null)
         {
             Destroy(standbyFruit);
             standbyFruit = null;
+        }
+
+        // 画面上の全フルーツ削除
+        FruitController[] fruits = FindObjectsByType<FruitController>(FindObjectsSortMode.None);
+        foreach (var fruit in fruits)
+        {
+            Destroy(fruit.gameObject);
         }
     }
 

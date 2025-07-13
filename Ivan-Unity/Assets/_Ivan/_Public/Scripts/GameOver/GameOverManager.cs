@@ -63,4 +63,9 @@ public class GameOverManager : MonoBehaviour
             resultManager.ShowResult();
         }
     }
+
+    public void ResetGameOverFlag()
+    {
+        isGameOver = false;
+    }
 }

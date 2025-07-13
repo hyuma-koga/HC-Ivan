@@ -2134,7 +2134,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverManager: {fileID: 192846960}
-  clickDisableTime: 0.5
+  fruitDropper: {fileID: 1279934979}
+  scoreManager: {fileID: 1515177265}
+  clickDisableTime: 1
 --- !u!1 &848060572
 GameObject:
   m_ObjectHideFlags: 0
@@ -2318,9 +2320,7 @@ MonoBehaviour:
   titleUI: {fileID: 1840056785}
   gameUI: {fileID: 1924513736}
   resultUI: {fileID: 1928535178}
-  scoreManager: {fileID: 1515177265}
   gameManager: {fileID: 773120318}
-  fruitDropper: {fileID: 1279934979}
 --- !u!1 &903529028
 GameObject:
   m_ObjectHideFlags: 0
@@ -4566,6 +4566,8 @@ MonoBehaviour:
   scoreManager: {fileID: 1515177265}
   resultImage: {fileID: 312078361}
   mainCamera: {fileID: 519420031}
+  fruitDropper: {fileID: 1279934979}
+  gameManager: {fileID: 773120318}
 --- !u!1 &1648668305
 GameObject:
   m_ObjectHideFlags: 0

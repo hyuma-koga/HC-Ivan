@@ -2,12 +2,10 @@ using UnityEngine;
 
 public class TitleManager : MonoBehaviour
 {
-    public GameObject   titleUI;
-    public GameObject   gameUI;
-    public GameObject   resultUI;
-    public ScoreManager scoreManager;
-    public GameManager  gameManager;
-    public FruitDropper fruitDropper;
+    public GameObject titleUI;
+    public GameObject gameUI;
+    public GameObject resultUI;
+    public GameManager gameManager;
 
     private void Start()
     {
@@ -26,39 +24,16 @@ public class TitleManager : MonoBehaviour
             gameUI.SetActive(true);
         }
 
-        if (scoreManager != null)
-        {
-            scoreManager.ResetScore();
-        }
-
         if (gameManager != null)
         {
-            gameManager.StartGame();
+            gameManager.StartGame(); // Å© GameManager Ç…èàóùÇàÍîC
         }
-
-        if (fruitDropper != null)
-        {
-            fruitDropper.InitializeDropper();
-        }
-
-        Time.timeScale = 1f;
     }
 
     private void ShowTitleUI()
     {
-        if (titleUI != null)
-        {
-            titleUI.SetActive(true);
-        }
-
-        if (gameUI != null)
-        {
-            gameUI.SetActive(false);
-        }
-
-        if (resultUI != null)
-        {
-            resultUI.SetActive(false);
-        }
+        if (titleUI != null) titleUI.SetActive(true);
+        if (gameUI != null) gameUI.SetActive(false);
+        if (resultUI != null) resultUI.SetActive(false);
     }
 }

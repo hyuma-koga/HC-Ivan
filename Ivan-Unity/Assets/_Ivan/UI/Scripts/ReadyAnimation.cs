@@ -70,8 +70,6 @@ public class ReadyAnimation : MonoBehaviour
         goRightPanel.anchoredPosition = new Vector2(goPanelHalfWidth, 0);
         goText.SetActive(true);
 
-        yield return new WaitForSeconds(0.5f);
-
         // 目標位置を固定値にする（例: ±500）
         float targetLeftX = -500f;
         float targetRightX = 500f;

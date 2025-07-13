@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class TitleManager : MonoBehaviour
 {
-    public GameObject titleUI;
-    public GameObject gameUI;
-    public GameObject resultUI;
+    public GameObject  titleUI;
+    public GameObject  gameUI;
+    public GameObject  resultUI;
     public GameManager gameManager;
 
     private void Start()
@@ -26,14 +26,25 @@ public class TitleManager : MonoBehaviour
 
         if (gameManager != null)
         {
-            gameManager.StartGame(); // Å© GameManager Ç…èàóùÇàÍîC
+            gameManager.StartGame();
         }
     }
 
     private void ShowTitleUI()
     {
-        if (titleUI != null) titleUI.SetActive(true);
-        if (gameUI != null) gameUI.SetActive(false);
-        if (resultUI != null) resultUI.SetActive(false);
+        if (titleUI != null)
+        {
+            titleUI.SetActive(true);
+        }
+
+        if (gameUI != null)
+        {
+            gameUI.SetActive(false);
+        }
+
+        if (resultUI != null)
+        {
+            resultUI.SetActive(false);
+        }
     }
 }

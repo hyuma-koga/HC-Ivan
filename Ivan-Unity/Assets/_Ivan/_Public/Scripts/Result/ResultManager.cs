@@ -5,15 +5,15 @@ using System.Collections;
 
 public class ResultManager : MonoBehaviour
 {
-    public GameObject resultUI;
-    public GameObject titleUI;
-    public GameObject gameUI;
-    public TMP_Text scoreText;
+    public GameManager  gameManager;
     public ScoreManager scoreManager;
-    public Image resultImage;
-    public Camera mainCamera;
+    public GameObject   resultUI;
+    public GameObject   titleUI;
+    public GameObject   gameUI;
+    public TMP_Text     scoreText;
+    public Image        resultImage;
+    public Camera       mainCamera;
     public FruitDropper fruitDropper;
-    public GameManager gameManager;
 
     private void Awake()
     {
@@ -30,9 +30,20 @@ public class ResultManager : MonoBehaviour
 
     public void ReturnToTitle()
     {
-        if (resultUI != null) resultUI.SetActive(false);
-        if (titleUI != null) titleUI.SetActive(true);
-        if (gameUI != null) gameUI.SetActive(false);
+        if (resultUI != null)
+        {
+            resultUI.SetActive(false);
+        }
+
+        if (titleUI != null)
+        {
+            titleUI.SetActive(true);
+        }
+
+        if (gameUI != null)
+        {
+            gameUI.SetActive(false);
+        }
 
         if (fruitDropper != null)
         {

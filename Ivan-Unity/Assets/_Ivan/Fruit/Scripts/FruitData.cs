@@ -4,7 +4,7 @@ using UnityEngine;
 public class FruitData
 {
     public FruitType type;
-    public Sprite sprite;
-    public int score;
+    public Sprite    sprite;
+    public int       score;
     public FruitType nextType;
 }

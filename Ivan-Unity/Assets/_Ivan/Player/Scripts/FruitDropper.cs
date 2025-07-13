@@ -14,10 +14,6 @@ public class FruitDropper : MonoBehaviour
     private FruitType   nextFruitType;
     private GameObject  standbyFruit;
 
-    private void Start()
-    {
-    }
-
     private void Update()
     {
         if (gameManager == null || !gameManager.IsPlaying)
@@ -30,7 +26,6 @@ public class FruitDropper : MonoBehaviour
             standbyFruit.transform.position = spawnPoint.position;
         }
 
-        // UI è„ÉNÉäÉbÉNÇÕñ≥éã
         if (Input.GetMouseButtonDown(0) && gameManager.IsPlaying && !EventSystem.current.IsPointerOverGameObject())
         {
             DropFruit();

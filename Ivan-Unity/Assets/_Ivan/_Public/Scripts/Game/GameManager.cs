@@ -3,14 +3,13 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public GameOverManager gameOverManager;
-    public FruitDropper fruitDropper;
-    public ScoreManager scoreManager;
+    public FruitDropper    fruitDropper;
+    public ScoreManager    scoreManager;
+    public bool            IsPlaying { get; private set; } = false;
+    public float           clickDisableTime = 0.5f;
 
-    public bool IsPlaying { get; private set; } = false;
-    public float clickDisableTime = 0.5f;
-
-    private float clickTimer = 0f;
-    private bool firstFrameIgnore = false;
+    private float          clickTimer = 0f;
+    private bool           firstFrameIgnore = false;
 
     public void StartGame()
     {
@@ -25,7 +24,6 @@ public class GameManager : MonoBehaviour
         }
 
         Time.timeScale = 1f;
-
         IsPlaying = true;
         clickTimer = clickDisableTime;
         firstFrameIgnore = true;

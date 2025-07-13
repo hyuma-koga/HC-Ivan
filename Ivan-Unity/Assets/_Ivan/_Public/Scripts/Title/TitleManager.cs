@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class TitleManager : MonoBehaviour
 {
-    public GameObject  titleUI;
-    public GameObject  gameUI;
-    public GameObject  resultUI;
-    public GameManager gameManager;
+    public GameObject titleUI;
+    public GameObject gameUI;
+    public GameObject resultUI;
+    public ReadyManager readyManager;
 
     private void Start()
     {
@@ -14,19 +14,14 @@ public class TitleManager : MonoBehaviour
 
     public void StartGame()
     {
-        if (titleUI != null)
-        {
-            titleUI.SetActive(false);
-        }
-
         if (gameUI != null)
         {
-            gameUI.SetActive(true);
+            gameUI.SetActive(false); // Readyââèoå„Ç…ONÇ…Ç∑ÇÈ
         }
 
-        if (gameManager != null)
+        if (readyManager != null)
         {
-            gameManager.StartGame();
+            readyManager.StartReadyFromTitle();
         }
     }
 

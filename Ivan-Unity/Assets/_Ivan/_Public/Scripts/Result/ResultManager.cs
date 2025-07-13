@@ -5,16 +5,17 @@ using System.Collections;
 
 public class ResultManager : MonoBehaviour
 {
-    public GameManager  gameManager;
+    public GameManager gameManager;
     public ScoreManager scoreManager;
-    public GameObject   resultUI;
-    public GameObject   titleUI;
-    public GameObject   gameUI;
-    public GameObject   gameOverUI;
-    public TMP_Text     scoreText;
-    public Image        resultImage;
-    public Camera       mainCamera;
+    public GameObject resultUI;
+    public GameObject titleUI;
+    public GameObject gameUI;
+    public GameObject gameOverUI;
+    public TMP_Text scoreText;
+    public Image resultImage;
+    public Camera mainCamera;
     public FruitDropper fruitDropper;
+    public ReadyManager readyManager;
 
     private void Awake()
     {
@@ -31,14 +32,9 @@ public class ResultManager : MonoBehaviour
 
     public void ReturnToGame()
     {
-        if (resultUI != null)
-        {
-            resultUI.SetActive(false);
-        }
-
         if (gameUI != null)
         {
-            gameUI.SetActive(true);
+            gameUI.SetActive(false); // Readyå„Ç…ONÇ…Ç∑ÇÈ
         }
 
         if (gameOverUI != null)
@@ -51,9 +47,16 @@ public class ResultManager : MonoBehaviour
             fruitDropper.ClearFruit();
         }
 
-        if (gameManager != null)
+        if (scoreManager != null)
         {
-            gameManager.StartGame();
+            scoreManager.ResetScore();
+        }
+
+        Time.timeScale = 1f;
+
+        if (readyManager != null)
+        {
+            readyManager.StartReadyFromResult();
         }
     }
 

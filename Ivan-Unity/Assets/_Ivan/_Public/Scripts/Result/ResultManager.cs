@@ -5,15 +5,15 @@ using System.Collections;
 
 public class ResultManager : MonoBehaviour
 {
-    public GameManager gameManager;
+    public GameManager  gameManager;
     public ScoreManager scoreManager;
-    public GameObject resultUI;
-    public GameObject titleUI;
-    public GameObject gameUI;
-    public GameObject gameOverUI;
-    public TMP_Text scoreText;
-    public Image resultImage;
-    public Camera mainCamera;
+    public GameObject   resultUI;
+    public GameObject   titleUI;
+    public GameObject   gameUI;
+    public GameObject   gameOverUI;
+    public TMP_Text     scoreText;
+    public Image        resultImage;
+    public Camera       mainCamera;
     public FruitDropper fruitDropper;
     public ReadyManager readyManager;
 
@@ -116,6 +116,7 @@ public class ResultManager : MonoBehaviour
         rt.Release();
 
         Texture2D flippedTex = new Texture2D(screenTex.width, screenTex.height);
+        
         for (int y = 0; y < screenTex.height; y++)
         {
             flippedTex.SetPixels(0, y, screenTex.width, 1, screenTex.GetPixels(0, screenTex.height - y - 1, screenTex.width, 1));

@@ -29,4 +29,16 @@ public class ScoreManager : MonoBehaviour
     {
         score = 0;
     }
+
+    public void SetScore(int value)
+    {
+        score = value;
+
+        if (score > bestScore)
+        {
+            bestScore = score;
+            PlayerPrefs.SetInt("BestScore", bestScore);
+            PlayerPrefs.Save();
+        }
+    }
 }

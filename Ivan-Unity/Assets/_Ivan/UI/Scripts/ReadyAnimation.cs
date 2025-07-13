@@ -4,21 +4,16 @@ using TMPro;
 
 public class ReadyAnimation : MonoBehaviour
 {
-    [Header("Ready UI")]
-    public GameObject readyUI;
+    public GameObject    readyUI;
     public RectTransform readyLeftPanel;
     public RectTransform readyRightPanel;
     public RectTransform readyText;
-
-    [Header("Go UI")]
-    public GameObject goUI;
+    public GameObject    goUI;
     public RectTransform goLeftPanel;
     public RectTransform goRightPanel;
-    public GameObject goText;
-
-    [Header("パラメータ")]
-    public float panelMoveSpeed = 800f;
-    public float textMoveSpeed = 1000f;
+    public GameObject    goText;
+    public float         panelMoveSpeed = 800f;
+    public float         textMoveSpeed = 1000f;
 
     public IEnumerator PlayReadyOnly()
     {
@@ -42,6 +37,7 @@ public class ReadyAnimation : MonoBehaviour
                 readyLeftPanel.anchoredPosition = new Vector2(-panelHalfWidth, 0);
                 readyRightPanel.anchoredPosition = new Vector2(panelHalfWidth, 0);
             }
+
             yield return null;
         }
 
@@ -49,8 +45,12 @@ public class ReadyAnimation : MonoBehaviour
         {
             float moveAmount = textMoveSpeed * Time.deltaTime;
             readyText.anchoredPosition -= new Vector2(0, moveAmount);
+
             if (readyText.anchoredPosition.y < 0)
+            {
                 readyText.anchoredPosition = Vector2.zero;
+            }
+
             yield return null;
         }
 
@@ -65,12 +65,10 @@ public class ReadyAnimation : MonoBehaviour
 
         float goPanelHalfWidth = goLeftPanel.rect.width / 2;
 
-        // 初期位置
         goLeftPanel.anchoredPosition = new Vector2(-goPanelHalfWidth, 0);
         goRightPanel.anchoredPosition = new Vector2(goPanelHalfWidth, 0);
         goText.SetActive(true);
 
-        // 目標位置を固定値にする（例: ±500）
         float targetLeftX = -500f;
         float targetRightX = 500f;
 

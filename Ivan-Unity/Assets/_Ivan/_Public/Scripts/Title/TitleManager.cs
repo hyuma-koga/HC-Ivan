@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class TitleManager : MonoBehaviour
 {
-    public GameObject titleUI;
-    public GameObject gameUI;
-    public GameObject resultUI;
+    public GameObject   titleUI;
+    public GameObject   gameUI;
+    public GameObject   resultUI;
     public ReadyManager readyManager;
 
     private void Start()
@@ -16,7 +16,7 @@ public class TitleManager : MonoBehaviour
     {
         if (gameUI != null)
         {
-            gameUI.SetActive(false); // Readyââèoå„Ç…ONÇ…Ç∑ÇÈ
+            gameUI.SetActive(false);
         }
 
         if (readyManager != null)

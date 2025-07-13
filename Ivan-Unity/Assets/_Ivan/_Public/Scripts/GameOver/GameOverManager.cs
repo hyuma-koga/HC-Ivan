@@ -8,7 +8,7 @@ public class GameOverManager : MonoBehaviour
     public bool          IsGameOver => isGameOver;
     public ResultManager resultManager;
 
-    private bool      isGameOver = false;
+    private bool         isGameOver = false;
     
     public void CheckGameOver()
     {

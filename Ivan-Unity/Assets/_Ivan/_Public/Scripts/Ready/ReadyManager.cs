@@ -3,21 +3,21 @@ using System.Collections;
 
 public class ReadyManager : MonoBehaviour
 {
-    [Header("êÿÇËë÷Ç¶ÇÈUI")]
-    public GameObject titleUI;
-    public GameObject resultUI;
-    public GameObject gameUI;
-
-    [Header("éQè∆")]
+    public GameObject     titleUI;
+    public GameObject     resultUI;
+    public GameObject     gameUI;
     public ReadyAnimation readyAnimation;
 
-    private GameManager gameManager;
+    private GameManager   gameManager;
 
     private void Awake()
     {
         gameManager = FindFirstObjectByType<GameManager>();
 
-        if (gameUI != null) gameUI.SetActive(false);
+        if (gameUI != null)
+        {
+            gameUI.SetActive(false);
+        }
     }
 
     public void StartReadyFromTitle()
@@ -28,6 +28,11 @@ public class ReadyManager : MonoBehaviour
     public void StartReadyFromResult()
     {
         StartCoroutine(StartSequence(false));
+    }
+
+    public void StartReadyFromContinue()
+    {
+        StartCoroutine(StartSequenceFromContinue());
     }
 
     private IEnumerator StartSequence(bool fromTitle)
@@ -54,5 +59,27 @@ public class ReadyManager : MonoBehaviour
         {
             gameManager.StartGame();
         }
+    }
+
+    private IEnumerator StartSequenceFromContinue()
+    {
+        yield return StartCoroutine(readyAnimation.PlayReadyOnly());
+
+        if (titleUI != null)
+        {
+            titleUI.SetActive(false);
+        }
+
+        if (gameUI != null)
+        {
+            gameUI.SetActive(true);
+        }
+
+        if (gameManager != null)
+        {
+            gameManager.LoadGameAndStart();
+        }
+
+        yield return StartCoroutine(readyAnimation.PlayGoOnly());
     }
 }

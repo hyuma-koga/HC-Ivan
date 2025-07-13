@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System.Collections;
+using System.Collections.Generic;
 
 public class FruitDropper : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class FruitDropper : MonoBehaviour
 
     private void Update()
     {
-        if (gameManager == null || !gameManager.IsPlaying)
+        if (gameManager == null || !gameManager.IsPlaying || gameManager.IsClickDisabled)
         {
             return;
         }
@@ -26,8 +27,13 @@ public class FruitDropper : MonoBehaviour
             standbyFruit.transform.position = spawnPoint.position;
         }
 
-        if (Input.GetMouseButtonDown(0) && gameManager.IsPlaying && !EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetMouseButtonDown(0))
         {
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            {
+                return;
+            }
+
             DropFruit();
         }
     }
@@ -118,5 +124,73 @@ public class FruitDropper : MonoBehaviour
     {
         int random = Random.Range(0, 5);
         return (FruitType)random;
+    }
+
+    public List<FruitSaveData> GetActiveFruitsData()
+    {
+        List<FruitSaveData> dataList = new List<FruitSaveData>();
+
+        FruitController[] fruits = FindObjectsByType<FruitController>(FindObjectsSortMode.None);
+        foreach (var fruit in fruits)
+        {
+            FruitSaveData data = new FruitSaveData();
+            data.type = fruit.fruitType;
+            data.position = fruit.transform.position;
+            data.rotation = fruit.transform.rotation;
+            data.scale = fruit.transform.localScale;
+            dataList.Add(data);
+        }
+
+        return dataList;
+    }
+
+    public FruitSaveData GetStandbyFruitData()
+    {
+        if (standbyFruit == null) return null;
+
+        FruitController fruitCtrl = standbyFruit.GetComponent<FruitController>();
+        FruitSaveData data = new FruitSaveData();
+        data.type = fruitCtrl.fruitType;
+        data.position = standbyFruit.transform.position;
+        data.rotation = standbyFruit.transform.rotation;
+        data.scale = standbyFruit.transform.localScale;
+        return data;
+    }
+
+    public FruitType GetNextFruitType()
+    {
+        return nextFruitType;
+    }
+
+    public void RestoreFruits(List<FruitSaveData> activeData, FruitSaveData standbyData, FruitType nextType)
+    {
+        ClearFruit();
+
+        foreach (var data in activeData)
+        {
+            var fruitObj = Instantiate(fruitPrefab, data.position, data.rotation);
+            fruitObj.transform.localScale = data.scale;
+
+            FruitController fruitCtrl = fruitObj.GetComponent<FruitController>();
+            FruitData fullData = fruitManager.GetFruitData(data.type);
+            fruitCtrl.Init(fullData);
+
+            fruitObj.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        }
+
+        if (standbyData != null)
+        {
+            standbyFruit = Instantiate(fruitPrefab, standbyData.position, standbyData.rotation);
+            standbyFruit.transform.localScale = standbyData.scale;
+
+            FruitController fruitCtrl = standbyFruit.GetComponent<FruitController>();
+            FruitData fullData = fruitManager.GetFruitData(standbyData.type);
+            fruitCtrl.Init(fullData);
+
+            standbyFruit.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        }
+
+        nextFruitType = nextType;
+        UpdateNextFruitUI();
     }
 }

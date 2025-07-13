@@ -4,8 +4,8 @@ using System.Collections.Generic;
 [Serializable]
 public class SaveData
 {
-    public List<FruitData> activeFruits;
-    public FruitData       standbyFruit;
-    public FruitData       nextFruit;
-    public int　　　　　　 score;
+    public List<FruitSaveData> activeFruits;
+    public FruitSaveData standbyFruit;
+    public FruitType nextFruitType;
+    public int score;
 }

@@ -425,9 +425,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 890318264}
-        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
-        m_MethodName: StartGame
+      - m_Target: {fileID: 1743197404}
+        m_TargetAssemblyTypeName: UISaveHandler, Assembly-CSharp
+        m_MethodName: OnStartButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -703,7 +703,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a87b84507a56274abfa3ee2e7b6bdf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverLineY: -1
+  gameOverLineY: 2.2
   gameOverUI: {fileID: 472547215}
   resultManager: {fileID: 1629040351}
 --- !u!1 &206456458
@@ -4746,7 +4746,7 @@ GameObject:
   - component: {fileID: 1435755749}
   - component: {fileID: 1435755748}
   m_Layer: 5
-  m_Name: Button_Start (1)
+  m_Name: Button_LoadGame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4815,9 +4815,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 890318264}
-        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
-        m_MethodName: StartGame
+      - m_Target: {fileID: 1743197404}
+        m_TargetAssemblyTypeName: UISaveHandler, Assembly-CSharp
+        m_MethodName: OnContinueButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5971,6 +5971,7 @@ GameObject:
   - component: {fileID: 1743197403}
   - component: {fileID: 1743197402}
   - component: {fileID: 1743197401}
+  - component: {fileID: 1743197404}
   m_Layer: 5
   m_Name: Button_Save
   m_TagString: Untagged
@@ -6040,7 +6041,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1743197402}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1743197404}
+        m_TargetAssemblyTypeName: UISaveHandler, Assembly-CSharp
+        m_MethodName: OnSaveButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1743197402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6079,6 +6092,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1743197399}
   m_CullTransparentMesh: 1
+--- !u!114 &1743197404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743197399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65cf1286c2b2c6c41aed2c045a7e7f37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 773120318}
+  titleUI: {fileID: 1840056785}
+  gameUI: {fileID: 1924513736}
+  readyManager: {fileID: 140226015}
 --- !u!1 &1791781512
 GameObject:
   m_ObjectHideFlags: 0
@@ -6388,7 +6417,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1924513737
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6432,7 +6461,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

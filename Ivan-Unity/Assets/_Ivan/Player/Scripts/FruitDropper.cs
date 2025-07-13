@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections;
 
 public class FruitDropper : MonoBehaviour
@@ -6,6 +7,7 @@ public class FruitDropper : MonoBehaviour
     public GameObject   fruitPrefab;
     public Transform    spawnPoint;
     public FruitManager fruitManager;
+    public GameManager  gameManager;
     public UIManager    uiManager;
 
     private FruitType   currentFruitType;
@@ -14,6 +16,34 @@ public class FruitDropper : MonoBehaviour
 
     private void Start()
     {
+        //currentFruitType = GetRandomFruitType();
+        //nextFruitType = GetRandomFruitType();
+
+        //UpdateNextFruitUI();
+        //CreateStandbyFruit(currentFruitType);
+    }
+
+    private void Update()
+    {
+        if (gameManager == null || !gameManager.IsPlaying)
+        {
+            return;
+        }
+
+        if (standbyFruit != null)
+        {
+            standbyFruit.transform.position = spawnPoint.position;
+        }
+
+        // UI è„ÉNÉäÉbÉNÇÕñ≥éã
+        if (Input.GetMouseButtonDown(0) && gameManager.CanClick() && !EventSystem.current.IsPointerOverGameObject())
+        {
+            DropFruit();
+        }
+    }
+
+    public void InitializeDropper()
+    {
         currentFruitType = GetRandomFruitType();
         nextFruitType = GetRandomFruitType();
 
@@ -21,16 +51,12 @@ public class FruitDropper : MonoBehaviour
         CreateStandbyFruit(currentFruitType);
     }
 
-    private void Update()
+    public void ClearStandbyFruit()
     {
         if (standbyFruit != null)
         {
-            standbyFruit.transform.position = spawnPoint.position;
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            DropFruit();
+            Destroy(standbyFruit);
+            standbyFruit = null;
         }
     }
 

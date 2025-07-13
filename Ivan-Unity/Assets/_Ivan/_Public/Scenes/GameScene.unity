@@ -424,7 +424,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 52826123}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 890318264}
+        m_TargetAssemblyTypeName: TitleManager, Assembly-CSharp
+        m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &52826123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -643,7 +655,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a87b84507a56274abfa3ee2e7b6bdf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverLineY: 2.2
+  gameOverLineY: -1
   gameOverUI: {fileID: 472547215}
   resultManager: {fileID: 1629040351}
 --- !u!1 &248755548
@@ -2026,7 +2038,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 745308877}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1629040351}
+        m_TargetAssemblyTypeName: ResultManager, Assembly-CSharp
+        m_MethodName: ReturnToTitle
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &745308877
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2110,6 +2134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameOverManager: {fileID: 192846960}
+  clickDisableTime: 0.5
 --- !u!1 &848060572
 GameObject:
   m_ObjectHideFlags: 0
@@ -2246,6 +2271,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 848060572}
   m_CullTransparentMesh: 1
+--- !u!1 &890318262
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 890318263}
+  - component: {fileID: 890318264}
+  m_Layer: 0
+  m_Name: TitleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &890318263
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 890318262}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1906461348}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &890318264
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 890318262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4596d6d2ffb22d41ae301b9a42be9d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  titleUI: {fileID: 1840056785}
+  gameUI: {fileID: 1924513736}
+  resultUI: {fileID: 1928535178}
+  scoreManager: {fileID: 1515177265}
+  gameManager: {fileID: 773120318}
+  fruitDropper: {fileID: 1279934979}
 --- !u!1 &903529028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2687,10 +2762,10 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1924513737}
-  - {fileID: 1928535179}
-  - {fileID: 472547216}
   - {fileID: 1840056786}
+  - {fileID: 1924513737}
+  - {fileID: 472547216}
+  - {fileID: 1928535179}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3242,6 +3317,7 @@ MonoBehaviour:
   fruitPrefab: {fileID: 7411704972591376557, guid: 996893290ff954f4c996e937e902e4e8, type: 3}
   spawnPoint: {fileID: 2054209706}
   fruitManager: {fileID: 11400000, guid: 33f1288b0593f714cad16da3fd4e5371, type: 2}
+  gameManager: {fileID: 773120318}
   uiManager: {fileID: 1837972805}
 --- !u!114 &1279934980
 MonoBehaviour:
@@ -4484,6 +4560,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resultUI: {fileID: 1928535178}
+  titleUI: {fileID: 1840056785}
+  gameUI: {fileID: 1924513736}
   scoreText: {fileID: 248755550}
   scoreManager: {fileID: 1515177265}
   resultImage: {fileID: 312078361}
@@ -5124,7 +5202,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -5183,6 +5261,7 @@ Transform:
   - {fileID: 773120317}
   - {fileID: 192846959}
   - {fileID: 1629040350}
+  - {fileID: 890318263}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1924513736
@@ -5202,7 +5281,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1924513737
 RectTransform:
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 public class FruitSaveData
 {
     public FruitType  type;        // フルーツの種類だけ保存
-    public Vector3    position;      // 位置
-    public Quaternion rotation;   // 回転
-    public Vector3    scale;         // スケール
+    public Vector3    position;    // 位置
+    public Quaternion rotation;    // 回転
+    public Vector3    scale;       // スケール
 }

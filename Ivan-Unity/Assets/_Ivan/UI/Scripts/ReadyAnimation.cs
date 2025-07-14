@@ -55,7 +55,6 @@ public class ReadyAnimation : MonoBehaviour
         }
 
         yield return new WaitForSeconds(0.5f);
-
         readyUI.SetActive(false);
     }
 

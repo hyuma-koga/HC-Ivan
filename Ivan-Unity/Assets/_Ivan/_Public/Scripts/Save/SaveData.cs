@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class SaveData
 {
     public List<FruitSaveData> activeFruits;
-    public FruitSaveData standbyFruit;
-    public FruitType nextFruitType;
-    public int score;
+    public FruitSaveData       standbyFruit;
+    public FruitType           nextFruitType;
+    public int                 score;
 }

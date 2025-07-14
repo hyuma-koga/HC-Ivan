@@ -11,9 +11,12 @@ public class FruitDropper : MonoBehaviour
     public GameManager  gameManager;
     public UIManager    uiManager;
 
-    private FruitType   currentFruitType;
-    private FruitType   nextFruitType;
-    private GameObject  standbyFruit;
+    private FruitType  currentFruitType;
+    private FruitType  nextFruitType;
+    private GameObject standbyFruit;
+    private GameObject lastDroppedFruit;
+
+    public FruitSaveData LastSavedStandbyData { get; private set; }
 
     private void Update()
     {
@@ -47,26 +50,33 @@ public class FruitDropper : MonoBehaviour
         CreateStandbyFruit(currentFruitType);
     }
 
+    public void ClearOnlyStandbyFruit()
+    {
+        if (standbyFruit != null)
+        {
+            Destroy(standbyFruit);
+            standbyFruit = null;
+        }
+    }
+
     public void ClearFruit()
     {
         StopAllCoroutines();
 
-        // スタンバイ中のフルーツ削除
         if (standbyFruit != null)
         {
             Destroy(standbyFruit);
             standbyFruit = null;
         }
 
-        // 画面上の全フルーツ削除
         FruitController[] fruits = FindObjectsByType<FruitController>(FindObjectsSortMode.None);
+        
         foreach (var fruit in fruits)
         {
             Destroy(fruit.gameObject);
         }
     }
 
-    //フルーツの落下
     public void DropFruit()
     {
         if (standbyFruit == null)
@@ -79,14 +89,15 @@ public class FruitDropper : MonoBehaviour
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 
         FruitController fruitCtrl = standbyFruit.GetComponent<FruitController>();
+        fruitCtrl.MarkDropStartTime();
         fruitCtrl.StartCoroutine(fruitCtrl.EnableGameOverCheckAfterDelay(0.5f));
 
+        lastDroppedFruit = standbyFruit;
         standbyFruit = null;
 
         StartCoroutine(SpawnNextFruitAfterDelay(0.5f));
     }
 
-    //生成タイミングを遅らせる
     private IEnumerator SpawnNextFruitAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -98,8 +109,7 @@ public class FruitDropper : MonoBehaviour
         CreateStandbyFruit(currentFruitType);
     }
 
-    //プレイヤーに持たせてスタンバイ状態にする
-    private void CreateStandbyFruit(FruitType type)
+    public void CreateStandbyFruit(FruitType type)
     {
         FruitData data = fruitManager.GetFruitData(type);
 
@@ -112,14 +122,12 @@ public class FruitDropper : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Kinematic;
     }
 
-    //UIに次のフルーツを表示
     private void UpdateNextFruitUI()
     {
         FruitData nextData = fruitManager.GetFruitData(nextFruitType);
         uiManager.UpdateNextFruit(nextData.sprite);
     }
 
-    //次のフルーツをランダムに取得する
     private FruitType GetRandomFruitType()
     {
         int random = Random.Range(0, 5);
@@ -131,6 +139,7 @@ public class FruitDropper : MonoBehaviour
         List<FruitSaveData> dataList = new List<FruitSaveData>();
 
         FruitController[] fruits = FindObjectsByType<FruitController>(FindObjectsSortMode.None);
+       
         foreach (var fruit in fruits)
         {
             FruitSaveData data = new FruitSaveData();
@@ -150,10 +159,13 @@ public class FruitDropper : MonoBehaviour
 
         FruitController fruitCtrl = standbyFruit.GetComponent<FruitController>();
         FruitSaveData data = new FruitSaveData();
+
         data.type = fruitCtrl.fruitType;
         data.position = standbyFruit.transform.position;
         data.rotation = standbyFruit.transform.rotation;
         data.scale = standbyFruit.transform.localScale;
+       
+        LastSavedStandbyData = data;
         return data;
     }
 
@@ -173,8 +185,8 @@ public class FruitDropper : MonoBehaviour
 
             FruitController fruitCtrl = fruitObj.GetComponent<FruitController>();
             FruitData fullData = fruitManager.GetFruitData(data.type);
+            
             fruitCtrl.Init(fullData);
-
             fruitObj.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         }
 
@@ -192,5 +204,55 @@ public class FruitDropper : MonoBehaviour
 
         nextFruitType = nextType;
         UpdateNextFruitUI();
+    }
+
+    public void RemoveLastDroppedFruit()
+    {
+        if (lastDroppedFruit != null)
+        {
+            Destroy(lastDroppedFruit);
+            lastDroppedFruit = null;
+        }
+    }
+
+    public FruitType RemoveLastDroppedFruitAndGetType()
+    {
+        FruitController[] fruits = FindObjectsByType<FruitController>(FindObjectsSortMode.None);
+        FruitController lastDropped = null;
+        float lastTime = -1f;
+
+        foreach (var fruit in fruits)
+        {
+            if (fruit.dropStartTime > 0 && fruit.dropStartTime > lastTime)
+            {
+                lastDropped = fruit;
+                lastTime = fruit.dropStartTime;
+            }
+        }
+
+        if (lastDropped != null)
+        {
+            FruitType type = lastDropped.fruitType;
+            Destroy(lastDropped.gameObject);
+            return type;
+        }
+
+        //見つからなければデフォルトで次フルーツを使う
+        return GetNextFruitType();
+    }
+
+    public void RemoveHighFruits(float yThreshold = 1f)
+    {
+        FruitController[] fruits = FindObjectsByType<FruitController>(FindObjectsSortMode.None);
+
+        foreach (var fruit in fruits)
+        {
+            if (fruit.gameObject == standbyFruit) continue;
+
+            if (fruit.transform.position.y > yThreshold)
+            {
+                Destroy(fruit.gameObject);
+            }
+        }
     }
 }

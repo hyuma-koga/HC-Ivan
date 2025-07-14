@@ -75,11 +75,16 @@ public class ReadyManager : MonoBehaviour
             gameUI.SetActive(true);
         }
 
-        if (gameManager != null)
+        if (gameManager != null && gameManager.fruitDropper != null)
         {
-            gameManager.LoadGameAndStart();
+            gameManager.fruitDropper.RemoveHighFruits();
         }
 
         yield return StartCoroutine(readyAnimation.PlayGoOnly());
+
+        if (gameManager != null)
+        {
+            gameManager.StartGame(isContinue: true);
+        }
     }
 }

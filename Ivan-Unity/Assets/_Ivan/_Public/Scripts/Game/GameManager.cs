@@ -4,44 +4,31 @@ using System.Collections;
 public class GameManager : MonoBehaviour
 {
     public GameOverManager gameOverManager;
-    public FruitDropper fruitDropper;
-    public ScoreManager scoreManager;
-    public bool IsPlaying { get; private set; } = false;
-    public bool IsClickDisabled { get; private set; } = false;
-    public float clickDisableTime = 0.5f;
+    public FruitDropper    fruitDropper;
+    public ScoreManager    scoreManager;
+    public bool            IsPlaying { get; private set; } = false;
+    public bool            IsClickDisabled { get; private set; } = false;
+    public float           clickDisableTime = 0.5f;
 
-    private float clickTimer = 0f;
-    private bool firstFrameIgnore = false;
+    private float          clickTimer = 0f;
+    private bool           firstFrameIgnore = false;
 
-    public void StartGame()
+    public void StartGame(bool isContinue = false)
     {
-        if (scoreManager != null)
+        if (fruitDropper != null)
+        {
+            //不要フルーツ削除（スタンバイ除外、高さ基準）
+            fruitDropper.RemoveHighFruits();
+        }
+
+        if (scoreManager != null && !isContinue)
         {
             scoreManager.ResetScore();
         }
 
-        if (fruitDropper != null)
+        if (fruitDropper != null && !isContinue)
         {
-            fruitDropper.InitializeDropper();
-        }
-
-        Time.timeScale = 1f;
-        IsPlaying = true;
-        clickTimer = clickDisableTime;
-        firstFrameIgnore = true;
-
-        if (gameOverManager != null)
-        {
-            gameOverManager.ResetGameOverFlag();
-        }
-    }
-
-    public void LoadGameAndStart()
-    {
-        LoadGame();
-
-        if (fruitDropper != null)
-        {
+            //新規スタート時のみ初期化
             fruitDropper.InitializeDropper();
         }
 
@@ -96,7 +83,6 @@ public class GameManager : MonoBehaviour
         string json = JsonUtility.ToJson(data);
         PlayerPrefs.SetString("SaveData", json);
         PlayerPrefs.Save();
-        Debug.Log("ゲームをセーブしました！");
     }
 
     public void LoadGame()
@@ -108,7 +94,28 @@ public class GameManager : MonoBehaviour
 
         scoreManager.SetScore(data.score);
         fruitDropper.RestoreFruits(data.activeFruits, data.standbyFruit, data.nextFruitType);
-        Debug.Log("ゲームをロードしました！");
+    }
+
+    public void LoadGameAndStart()
+    {
+        LoadGame();
+
+        if (fruitDropper != null)
+        {
+            FruitType lastType = fruitDropper.RemoveLastDroppedFruitAndGetType();
+            fruitDropper.ClearOnlyStandbyFruit();
+            fruitDropper.CreateStandbyFruit(lastType);
+        }
+
+        Time.timeScale = 1f;
+        IsPlaying = true;
+        clickTimer = clickDisableTime;
+        firstFrameIgnore = true;
+
+        if (gameOverManager != null)
+        {
+            gameOverManager.ResetGameOverFlag();
+        }
     }
 
     public void DisableClickTemporarily(float duration)

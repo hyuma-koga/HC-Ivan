@@ -3,10 +3,11 @@ using System.Collections;
 
 public class GameOverManager : MonoBehaviour
 {
-    public float         gameOverLineY = 2.2f;
+   
     public GameObject    gameOverUI;
-    public bool          IsGameOver => isGameOver;
     public ResultManager resultManager;
+    public float         gameOverLineY = 2.2f;
+    public bool          IsGameOver => isGameOver;
 
     private bool         isGameOver = false;
     
@@ -37,7 +38,6 @@ public class GameOverManager : MonoBehaviour
         }
 
         isGameOver = true;
-        Debug.Log("Game Over!");
 
         if (gameOverUI != null)
         {

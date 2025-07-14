@@ -9,6 +9,7 @@ public class FruitController : MonoBehaviour
     public int            score;
     public bool           isMerging = false;
     public bool           canCheckGameOver = false;
+    public float          dropStartTime = -1f;
 
     //‰Šú‰»ƒƒ\ƒbƒh
     public void Init(FruitData data)
@@ -84,5 +85,10 @@ public class FruitController : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         canCheckGameOver = true;
+    }
+
+    public void MarkDropStartTime()
+    {
+        dropStartTime = Time.time;
     }
 }

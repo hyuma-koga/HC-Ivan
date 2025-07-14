@@ -88,6 +88,12 @@ public class FruitDropper : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Dynamic;
         rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 
+        PolygonCollider2D collider = standbyFruit.GetComponent<PolygonCollider2D>();
+        if (collider != null)
+        {
+            collider.enabled = true;
+        }
+
         FruitController fruitCtrl = standbyFruit.GetComponent<FruitController>();
         fruitCtrl.MarkDropStartTime();
         fruitCtrl.StartCoroutine(fruitCtrl.EnableGameOverCheckAfterDelay(0.5f));
@@ -120,6 +126,12 @@ public class FruitDropper : MonoBehaviour
 
         Rigidbody2D rb = standbyFruit.GetComponent<Rigidbody2D>();
         rb.bodyType = RigidbodyType2D.Kinematic;
+
+        PolygonCollider2D collider = standbyFruit.GetComponent<PolygonCollider2D>();
+        if (collider != null)
+        {
+            collider.enabled = false;
+        }
     }
 
     private void UpdateNextFruitUI()
